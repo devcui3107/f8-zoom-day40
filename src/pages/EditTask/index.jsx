@@ -61,14 +61,14 @@ export default function EditTask() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen text-gray-500">
+      <div className="flex items-center justify-center text-gray-500">
         Đang tải dữ liệu...
       </div>
     )
   }
 
   return (
-    <div className="p-8 max-w-2xl mx-auto bg-gray-50 min-h-screen">
+    <div className="p-8 max-w-2xl mx-auto bg-gray-50">
       {/* Header */}
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-extrabold text-gray-800 flex items-center gap-2">

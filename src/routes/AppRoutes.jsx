@@ -3,6 +3,7 @@ import { HashRouter, Route, Routes } from 'react-router-dom'
 import RootLayout from '@/layouts/RootLayout'
 
 // Pages
+import FixScrollToTop from '@/components/FixScrollToTop'
 import EditTask from '@/pages/EditTask'
 import HomePage from '@/pages/Home'
 import NewTask from '@/pages/NewTask'
@@ -11,6 +12,7 @@ import TaskList from '@/pages/TaskList'
 function AppRoutes() {
   return (
     <HashRouter>
+      <FixScrollToTop />
       <Routes>
         <Route path="/" element={<RootLayout />}>
           <Route index element={<HomePage />} />
