@@ -1,0 +1,19 @@
+{
+  "tasks": [
+    {
+      "id": "ebb5",
+      "title": "Quét nhà",
+      "completed": true
+    },
+    {
+      "id": "9914",
+      "title": "Rửa chén",
+      "completed": true
+    },
+    {
+      "id": "5c4e",
+      "title": "Nấu cơm",
+      "completed": false
+    }
+  ]
+}

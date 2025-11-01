@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Redux Cosplay</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./redux.svg" />
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #7c4abc, #5c3bd6, #3b82f6);
+        font-family: sans-serif;
+      }
+
+      .container {
+        background-color: white;
+        border-radius: 2rem;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+        width: 600px;
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        font-size: 2rem;
+        font-weight: 800;
+        color: #1f2937;
+        margin-bottom: 1rem;
+      }
+
+      .subscribeBox {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .subscribeText {
+        color: rgb(3, 103, 107);
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .subscribeBtn {
+        background: rgb(3, 103, 107);
+        padding: 8px 12px !important;
+      }
+
+      .subscribeBox.show {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      /* COUNTER */
+      #counter {
+        font-size: 9rem;
+        font-weight: 700;
+        color: #111827;
+        margin-bottom: 2.5rem;
+        transition: all 0.3s ease;
+      }
+
+      /* BUTTON GRID */
+      .button-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        width: 100%;
+      }
+
+      /* BUTTON COMMON */
+      .btn {
+        padding: 1rem 0;
+        border-radius: 0.75rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition:
+          transform 0.2s ease,
+          background-color 0.2s ease;
+        color: white;
+        border: none;
+      }
+
+      .btn:hover {
+        transform: scale(1.05);
+      }
+
+      /* BUTTON COLORS */
+      #increase {
+        background-color: #10b981;
+      }
+      #increase:hover {
+        background-color: #059669;
+      }
+
+      #decrease {
+        background-color: #ef4444;
+      }
+      #decrease:hover {
+        background-color: #b91c1c;
+      }
+
+      #reset {
+        background-color: #3b82f6;
+      }
+      #reset:hover {
+        background-color: #2563eb;
+      }
+
+      #removeListener {
+        background-color: #6b7280;
+      }
+      #removeListener:hover {
+        background-color: #4b5563;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Counter App by Redux Cosplay</h1>
+      <div class="subscribeBox">
+        <span class="subscribeText">🙅‍♂️ Unsubscribed</span>
+        <button class="btn subscribeBtn">Subscribe</button>
+      </div>
+
+      <p id="counter"></p>
+
+      <div class="button-grid">
+        <button id="increase" class="btn">Increase</button>
+        <button id="decrease" class="btn">Decrease</button>
+        <button id="reset" class="btn">Reset</button>
+        <button id="removeListener" class="btn">Remove Listener</button>
+      </div>
+    </div>
+
+    <!-- Redux Cosplay -->
+    <script src="./redux.js"></script>
+
+    <script>
+      // 1. Tạo init state
+      const initState = 76
+
+      // #2. Tạo reducer:
+      function reducer(state, action) {
+        switch (action.type) {
+          case 'increase':
+            return state + 1
+          case 'decrease':
+            return state - 1
+          case 'reset':
+            return initState
+          default:
+            return state
+        }
+      }
+
+      // #3. Tạo store
+      const store = Redux.createStore(reducer, initState)
+
+      // DOM elements
+      const counter = document.querySelector('#counter')
+      const increaseBtn = document.querySelector('#increase')
+      const decreaseBtn = document.querySelector('#decrease')
+      const resetBtn = document.querySelector('#reset')
+      const removeListenerBtn = document.querySelector('#removeListener')
+      const subscribeBox = document.querySelector('.subscribeBox')
+      const subscribeBtn = document.querySelector('.subscribeBtn')
+
+      // Function Support
+      const render = () => {
+        counter.textContent = store.getState()
+      }
+
+      // Render UI
+      // Khởi chạy lần đầu
+      render()
+
+      // Global unsubscribe function
+      let unsubscribe = store.subscribe(render)
+
+      // Event Listener
+      // Increase
+      increaseBtn.onclick = () => store.dispatch({ type: 'increase' })
+
+      // Decrease
+      decreaseBtn.onclick = () => store.dispatch({ type: 'decrease' })
+
+      // Reset
+      resetBtn.onclick = () => store.dispatch({ type: 'reset' })
+
+      // Remove Listener
+      removeListenerBtn.onclick = () => {
+        if (unsubscribe) {
+          unsubscribe()
+          unsubscribe = null // Reset biến unsubscribe
+
+          subscribeBox && subscribeBox.classList.add('show')
+          console.log('Bạn vừa unsubscribe!')
+          console.log('Counter Current: ', store.getState())
+        }
+      }
+
+      // Subscribe
+      subscribeBtn.onclick = () => {
+        if (!unsubscribe) {
+          unsubscribe = store.subscribe(render)
+
+          subscribeBox && subscribeBox.classList.remove('show')
+          console.log('Bạn đã subscribe!')
+          console.log('Counter Current: ', store.getState())
+        }
+      }
+    </script>
+  </body>
+</html>

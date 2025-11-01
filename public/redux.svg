@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 50 50">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#764ABC" />
+      <stop offset="100%" stop-color="#FF5733" />
+    </linearGradient>
+  </defs>
+  <circle cx="25" cy="25" r="22" fill="url(#grad)" stroke="#fff" stroke-width="2" />
+  <text x="25" y="30" text-anchor="middle" font-size="20" font-family="sans-serif" fill="white" font-weight="bold">R</text>
+  <!-- các node nhỏ tượng trưng state -->
+  <circle cx="18" cy="18" r="3" fill="white" />
+  <circle cx="32" cy="18" r="3" fill="white" />
+  <circle cx="25" cy="32" r="3" fill="white" />
+</svg>

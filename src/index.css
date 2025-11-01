@@ -1,0 +1,42 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-primary: var(--primary);
+
+  --container: 1440px;
+}
+
+:root {
+  --foreground: #333;
+  --background: #fff;
+  --primary: #ff8826;
+}
+
+.dark {
+  --foreground: #eee;
+  --background: #333;
+  --primary: #ff8826;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .container {
+    max-width: var(--container);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  /* Custom Basic */
+  button {
+    cursor: pointer;
+  }
+}
